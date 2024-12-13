@@ -1,0 +1,15 @@
+import pandas as pd 
+import pathlib
+
+
+filespath = pathlib.Path(r'D:\sadiek\python\mcge\daily\New folder')
+
+files = list(filespath.glob("**/*.*"))
+
+allmonthdata = []
+
+
+for file in files : 
+    df =  pd.read_csv(file)
+    allmonthdata.append(df)
+    print(file)
