@@ -19,3 +19,23 @@ for file in files:
 
 all_months_data_df = pd.concat(all_months_data).reset_index(drop=True)
 all_months_data_df.to_csv("all_data.csv", index=False)
+
+
+
+
+    file =  pd.read_excel(savepath+filename)
+    file['Material'] = file['Material'].str.split(' ',n=1,expand=True)[0]
+    print(" Splited Matieral")
+    file['Plant'] =  file['Plant'].str.split(' ',n=1,expand=True)[0]
+    print(" Splited Plant")
+    file.drop(file[file['Plant'].str.contains('M')].index,inplace=True)
+    print(" Droped Plant")
+
+    file['Material']=  file['Material'].astype(int)
+    print(" as type material")
+    file['Plant'] =  file['Plant'].astype(int)
+    print(" as type Plant")
+    file['Date'] =   pd.to_datetime(file['Date'])
+    print(" as type Date")
+    file =   file.drop(columns=['Trn:SlsBUn.1','SlsRtlTSls.1','Price red.','Price red..1','Trn PrDiff','Trn PrDiff.1'])
+    file = file.rename(columns={'Trn:SlsBUn':'qty','SlsRtlTSls':'value'})
